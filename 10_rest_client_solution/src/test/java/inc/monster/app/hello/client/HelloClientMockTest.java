@@ -1,9 +1,5 @@
 package inc.monster.app.hello.client;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import inc.monster.app.hello.client.config.HelloClientConfig;
 import inc.monster.app.hello.client.domain.Hello;
@@ -13,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest(HelloClientConfig.class)
 public class HelloClientMockTest {
@@ -37,5 +37,6 @@ public class HelloClientMockTest {
         Hello hello = client.getHello();
         //then
         assertThat(hello).isEqualTo(new Hello("Hello World!"));
+        server.verify();
     }
 }
